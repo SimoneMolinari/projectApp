@@ -1,0 +1,110 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  *ngIf="!mobile" class="ion-content-desktop" >
+  <div class="svg"></div>
+  <form (ngSubmit)="register()" [formGroup]="credentials">
+    <div class="input-group">
+      <ion-item>
+        <ion-input type="text" placeholder="Username" formControlName="username"></ion-input>
+      </ion-item>
+      <div *ngIf="username">
+        <div *ngIf="(username.dirty || username.touched) && username.errors" class="errors">
+          <span *ngIf="username.errors?.required">Username is required</span>
+        </div>
+      </div>  
+
+      <ion-item>
+        <ion-input type="email" placeholder="Email" formControlName="email"></ion-input>
+      </ion-item>
+      <div *ngIf="email">
+        <div *ngIf="(email.dirty || email.touched) && email.errors" class="errors">
+          <span *ngIf="email.errors?.required">Email is required</span>
+          <span *ngIf="email.errors?.email">Email is invalid</span>
+        </div>
+      </div>
+
+      <ion-item>
+        <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
+      </ion-item>
+      <div *ngIf="password">
+        <div *ngIf="(password.dirty || password.touched) && password.errors" class="errors">
+          <span *ngIf="password.errors?.required">Password is required</span>
+          <span *ngIf="password.errors?.minlength">Password needs to be 8 characters</span>
+        </div>
+      </div>
+
+      <ion-item>
+        <ion-input type="password" placeholder="Repeat the password" formControlName="password_repeat"></ion-input>
+      </ion-item>
+      <div *ngIf="password_repeat">
+        <div *ngIf="password_repeat.errors && (password_repeat.dirty || password_repeat.touched) || password_repeat.value != password.value" class="errors">
+          <span *ngIf="password_repeat.errors?.required">You need to repeat the password<br></span>
+          <span *ngIf="password_repeat.value != password.value">The passwords must match</span>
+        </div>   
+      </div> 
+
+    </div>
+ 
+    <ion-button type="submit" expand="block" [disabled]="!credentials.valid || password_repeat.value != password.value">Sign up</ion-button>
+    <ion-button type="button" expand="block" color="light" fill="clear" (click)="goToLogin()">login page</ion-button>
+ 
+  </form>
+
+</ion-content>
+
+
+<ion-content  *ngIf="mobile" class="ion-content-mobile" >
+  <div class="svg-mobile"></div>
+  <form (ngSubmit)="register()" [formGroup]="credentials">
+    <div class="input-group">
+      <ion-item>
+        <ion-input type="text" placeholder="Username" formControlName="username"></ion-input>
+      </ion-item>
+      <div *ngIf="username">
+        <div *ngIf="(username.dirty || username.touched) && username.errors" class="errors">
+          <span *ngIf="username.errors?.required">Username is required</span>
+        </div>
+      </div>  
+
+      <ion-item>
+        <ion-input type="email" placeholder="Email" formControlName="email"></ion-input>
+      </ion-item>
+      <div *ngIf="email">
+        <div *ngIf="(email.dirty || email.touched) && email.errors" class="errors">
+          <span *ngIf="email.errors?.required">Email is required</span>
+          <span *ngIf="email.errors?.email">Email is invalid</span>
+        </div>
+      </div>
+
+      <ion-item>
+        <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
+      </ion-item>
+      <div *ngIf="password">
+        <div *ngIf="(password.dirty || password.touched) && password.errors" class="errors">
+          <span *ngIf="password.errors?.required">Password is required</span>
+          <span *ngIf="password.errors?.minlength">Password needs to be 8 characters</span>
+        </div>
+      </div>
+
+      <ion-item>
+        <ion-input type="password" placeholder="Repeat the password" formControlName="password_repeat"></ion-input>
+      </ion-item>
+      <div *ngIf="password_repeat">
+        <div *ngIf="password_repeat.errors && (password_repeat.dirty || password_repeat.touched) || password_repeat.value != password.value" class="errors">
+          <span *ngIf="password_repeat.errors?.required">You need to repeat the password<br></span>
+          <span *ngIf="password_repeat.value != password.value">The passwords must match</span>
+        </div>   
+      </div> 
+
+    </div>
+ 
+    <ion-button type="submit" expand="block" [disabled]="!credentials.valid || password_repeat.value != password.value">Sign up</ion-button>
+    <ion-button type="button" expand="block" color="light" fill="clear" (click)="goToLogin()">login page</ion-button>
+ 
+  </form>
+
+</ion-content>

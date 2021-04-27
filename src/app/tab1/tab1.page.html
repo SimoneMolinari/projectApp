@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+        Product List
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-content-desktop">
+  <ion-searchbar class="ion-searchbar" color="dark" showCancelButton="focus" placeholder="Search for title" animated="true" (ionInput)="filterList($event)"></ion-searchbar>
+<div class="control-group">
+  <ion-item-sliding>
+    <ion-item color="dark">
+      <ion-label>Slide to remove all</ion-label>
+      <ion-icon size="large" name="arrow-forward-circle-outline" slot="end"></ion-icon>
+    </ion-item>
+    <ion-item-options  side="end">
+      <ion-item-option button color="danger">Remove All</ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+</div>
+
+<ion-button (click)="logout()">Logout</ion-button>
+
+<ion-list color="tertiary" *ngFor="let product of filterProducts; let i = index" class="product-list"> 
+  <ion-item  color="dark" button="true" detail="true" [class.active]="i == currentIndex" (click)="setActiveProduct(product, i)">
+  {{ product.nome }} [{{product.id}}] {{currentIndex}}
+  </ion-item>
+</ion-list> 
+
+</ion-content>

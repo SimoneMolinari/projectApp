@@ -1,0 +1,45 @@
+.ion-content-mobile {
+    --padding-top: 40%;
+    --padding-start: 10%;
+    --padding-end: 10%;
+}
+
+.ion-content-desktop {
+    --padding-top: 10%;
+    --padding-start: 10%;
+    --padding-end: 10%;
+}
+
+.svg {
+    background-image: url(../../images/login.svg);
+    width: 100%;
+    background-size: cover;
+    height: 50%;
+    background-position: center top; /* First value is from left and second is from top. You can use use number as well*/
+    background-repeat: no-repeat;
+}
+
+.svg-mobile{
+    background-image: url(../../images/login.svg);
+    width: 100%;
+    background-size: cover;
+    height: 50%;
+    background-position: center top; /* First value is from left and second is from top. You can use use number as well*/
+    background-repeat:no-repeat;
+}
+
+.input-group {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+ 
+.errors {
+    font-size: small;
+    color: #fff;
+    background: var(--ion-color-danger);
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}

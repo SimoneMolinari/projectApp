@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+ 
+<ion-content *ngIf="!mobile" class="ion-content-desktop" >
+  <div class="svg">
+  </div>
+  <form (ngSubmit)="login()" [formGroup]="credentials">
+    <div class="input-group">
+
+      <ion-item>
+        <ion-input type="text" placeholder="Username" formControlName="username"></ion-input>
+      </ion-item>
+      <div *ngIf="username">
+        <div *ngIf="(username.dirty || username.touched) && username.errors" class="errors">
+          <span *ngIf="username.errors?.required">Username is required</span>
+        </div>
+      </div>
+
+      <ion-item>
+        <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
+      </ion-item>
+      <div *ngIf="password">
+        <div *ngIf="(password.dirty || password.touched) && password.errors" class="errors">
+          <span *ngIf="password.errors?.required">Password is required</span>
+          <span *ngIf="password.errors?.minlength">Password needs to be 8 characters</span>
+        </div>
+      </div>
+    </div>
+    
+    <ion-button type="submit" expand="block" [disabled]="!credentials.valid">Log in</ion-button>
+    <ion-button type="button" expand="block" color="light" fill="clear" routerLink="/register">Not yet a member? Sign up!</ion-button>
+  </form>
+  
+</ion-content>
+
+<ion-content *ngIf="mobile" class="ion-content-mobile" >
+  <div class="svg-mobile"></div>
+  <form (ngSubmit)="login()" [formGroup]="credentials">
+    <div class="input-group">
+
+      <ion-item>
+        <ion-input type="text" placeholder="Username" formControlName="username"></ion-input>
+      </ion-item>
+      <div *ngIf="username">
+        <div *ngIf="(username.dirty || username.touched) && username.errors" class="errors">
+          <span *ngIf="username.errors?.required">Username is required</span>
+        </div>
+      </div>
+      <ion-item>
+        <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
+      </ion-item>
+      <div *ngIf="password">
+        <div *ngIf="(password.dirty || password.touched) && password.errors" class="errors">
+          <span *ngIf="password.errors?.required">Password is required</span>
+          <span *ngIf="password.errors?.minlength">Password needs to be 8 characters</span>
+        </div>
+      </div>
+    </div>
+    
+    <ion-button type="submit" expand="block" [disabled]="!credentials.valid">Log in</ion-button>
+    <ion-button type="button" expand="block" color="light" fill="clear" routerLink="/register">Not yet a member? Sign up!</ion-button>
+    
+  </form>
+
+
+</ion-content>
