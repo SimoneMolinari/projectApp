@@ -1,31 +1,45 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title>
-        Product List
+      Product List
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-content-desktop">
-  <ion-searchbar class="ion-searchbar" color="dark" showCancelButton="focus" placeholder="Search for title" animated="true" (ionInput)="filterList($event)"></ion-searchbar>
-<div class="control-group">
-  <ion-item-sliding>
-    <ion-item color="dark">
-      <ion-label>Slide to remove all</ion-label>
-      <ion-icon size="large" name="arrow-forward-circle-outline" slot="end"></ion-icon>
-    </ion-item>
-    <ion-item-options  side="end">
-      <ion-item-option button color="danger">Remove All</ion-item-option>
-    </ion-item-options>
-  </ion-item-sliding>
-</div>
+<ion-content class="ion-content-desktop" (ionScrollStart)="scrollToTop()">
+    <ion-button routerLink="/side-menu">Menu</ion-button>
+    <ion-searchbar slot="fixed" class="ion-searchbar" color="dark" showCancelButton="focus" placeholder="Search for title"
+      animated="true" (ionInput)="filterList($event)"></ion-searchbar>
+    <ion-item-sliding class="del-all">
+      <ion-item color="dark">
+        <ion-label>Slide to remove all</ion-label>
+        <ion-icon size="large" name="arrow-forward-circle-outline" slot="end"></ion-icon>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option button color="secondary">Remove All</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    <!--<ion-button (click)="logout()" slot="fixed">Logout</ion-button>-->
 
-<ion-button (click)="logout()">Logout</ion-button>
 
-<ion-list color="tertiary" *ngFor="let product of filterProducts; let i = index" class="product-list"> 
-  <ion-item  color="dark" button="true" detail="true" [class.active]="i == currentIndex" (click)="setActiveProduct(product, i)">
-  {{ product.nome }} [{{product.id}}] {{currentIndex}}
-  </ion-item>
-</ion-list> 
+  <ion-list color="dark"  *ngFor="let product of filterProducts; let i = index" class="product-list">
+    <ion-card [class.active]="i == currentIndex" button="true" (click)="setActiveProduct(product, i)">
+      <ion-item>
+        <!--<ion-icon name="pricetag-outline" slot="start" color="secondary"></ion-icon>-->
+        <ion-label>ASIN: {{product.id}} </ion-label>
+        <ion-button fill="outline" slot="end" color="secondary">edit</ion-button>
+      </ion-item>
+      <ion-card-content>
+        {{ product.nome }}
+      </ion-card-content>
+    </ion-card>
 
+    <!--<ion-item color="dark" button="true" detail="true" [class.active]="i == currentIndex"
+      (click)="setActiveProduct(product, i)">
+      {{ product.nome }} [{{product.id}}] {{currentIndex}}
+    </ion-item>-->
+  </ion-list>
+  <ion-button color="primary" expand="block" (click)="scrollToTop()">Go to top</ion-button>
+
+  <app-side-menu></app-side-menu>
 </ion-content>

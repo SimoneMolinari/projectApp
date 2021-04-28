@@ -24,8 +24,10 @@ export class MainService {
     this.http.post(baseUrl+'updateProdotti', product);
   }
 
-  addProduct(product) {
-    this.http.post(baseUrl+'addProdotti', product);
+  addProduct(product: {id_prod, nome_prod, email, id_user}) {
+    this.http.post(baseUrl+'addProdotti', product).subscribe(err =>{
+      console.log(err);
+    });
   }
 
 }

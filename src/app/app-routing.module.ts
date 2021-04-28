@@ -24,6 +24,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
   },
   {
+    path: 'side-menu',
+    loadChildren: () => import('./pages/side-menu/side-menu.module').then( m => m.SideMenuPageModule)
+  },
+  {
     path: '',
     redirectTo: '/login',
     pathMatch: 'full'

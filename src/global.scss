@@ -26,6 +26,16 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 ion-content {
-    --background: var(--ion-color-tetiary);
+    --background: var(--ion-color-tertiary);
 }
 
+ion-item {
+    --border-color: var(--ion-color-primary);
+}
+
+ion-searchbar {
+    --border-radius: 10px;
+    --clear-button-color: var(--ion-color-primary);
+    --icon-color: var(--ion-color-primary);
+    --cancel-button-color:  var(--ion-color-primary);
+}

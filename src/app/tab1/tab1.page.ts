@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 
 import { Product } from '../models/product';
 import { MainService } from '../services/main.service';
+
+import { SideMenuPageModule } from '../pages/side-menu/side-menu.module';
  
 @Component({
   selector: 'app-tab1',
@@ -71,4 +73,8 @@ export class Tab1Page {
     });
   }
 
+  scrollToTop() {
+    document.querySelector('ion-content').scrollToTop(500);
+  }
+  
 }
