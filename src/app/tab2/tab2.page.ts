@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MainService } from '../services/main.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-tab2',
@@ -9,8 +11,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class Tab2Page implements OnInit {
 
-  constructor(private fb: FormBuilder,private mainService: MainService) {}
-
+  constructor(private fb: FormBuilder,private mainService: MainService, private http: HttpClient) {}
+  responseStatus : any;
+  isValid : boolean;
   product : FormGroup;
 
   ngOnInit(){
