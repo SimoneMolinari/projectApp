@@ -4,11 +4,16 @@
     --padding-end: 10%;
 }
 
+.ion-content-mobile {
+    --padding-top: 40%;
+    --padding-start: 10%;
+    --padding-end: 10%;
+}
+
 .control-group {
     border-radius: 10px;
     overflow: hidden;
     margin-bottom: 15px;
-    
 }
 
 .product-list {
@@ -17,7 +22,7 @@
 
 
 .del-all {
-    border-radius: 3px;
+    border-radius: 5px;
 }
 
 .top-div {
@@ -26,7 +31,7 @@
 
 ion-item {
     --border-color: var(--ion-color-secondary);
-    border-radius: 3px;
+    border-radius: 5px;
 }
 
 ion-searchbar {

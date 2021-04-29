@@ -7,20 +7,24 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-content-desktop" (ionScrollStart)="scrollToTop()">
+<ion-content *ngIf="!mobile" class="ion-content-desktop" (ionScrollStart)="scrollToTop()">
   
-  
-
   <ion-searchbar slot="fixed" showCancelButton="focus" placeholder="Search for products" animated="true"
     (ionInput)="filterList($event)"></ion-searchbar>
     
   <ion-item-sliding class="del-all" #slidingItem>
-    <ion-item>
-      <ion-label>Slide to remove all</ion-label>
+    <ion-item style="text-align: center;">
+      <ion-label>SLIDE</ion-label>
       <ion-icon color="secondary" size="large" name="arrow-forward-circle-outline" slot="end"></ion-icon>
+      <ion-icon color="secondary" size="large" name="arrow-back-circle-outline" slot="start"></ion-icon>
     </ion-item>
     <ion-item-options side="end">
       <ion-item-option button (click)="deleteAll();slidingItem.close()" color="danger">Remove All</ion-item-option>
+    </ion-item-options>
+    <ion-item-options side="start">
+      <ion-item-option button (click)="refreshList();slidingItem.close()" color="secondary">
+        <ion-icon name="refresh-circle-outline" size="large"></ion-icon>
+      </ion-item-option>
     </ion-item-options>
   </ion-item-sliding>
 
@@ -31,7 +35,53 @@
       <ion-item color="tertiary">
         <!--<ion-icon name="pricetag-outline" slot="end" color="secondary"></ion-icon>-->
         <ion-title>{{product.id}}</ion-title>
-        <ion-button *ngIf="i == currentIndex" fill="outline" slot="end" color="secondary">edit</ion-button>
+        <ion-button *ngIf="i == currentIndex" fill="solid" slot="end" color="secondary">edit</ion-button>
+      </ion-item>
+      <ion-card-content>
+        {{ product.nome }}
+      </ion-card-content>
+    </ion-card>
+
+  </ion-list>
+  <ion-button color="tertiary" expand="block" (click)="scrollToTop()">Go to top</ion-button>
+
+  <ion-refresher slot="fixed" (ionRefresh)="spinner($event)" pullMin="150" pullMax="250">
+    <ion-refresher-content pullingIcon="bubbles" pullingIcon="arrow-down-circle-outline">
+    </ion-refresher-content>
+  </ion-refresher>
+  
+</ion-content>
+
+
+
+<ion-content *ngIf="mobile" class="ion-content-mobile" (ionScrollStart)="scrollToTop()">
+  <ion-searchbar slot="fixed" showCancelButton="focus" placeholder="Search for products" animated="true"
+    (ionInput)="filterList($event)"></ion-searchbar>
+    
+  <ion-item-sliding class="del-all" #slidingItem>
+    <ion-item style="text-align: center;">
+      <ion-label>SLIDE</ion-label>
+      <ion-icon color="secondary" size="large" name="arrow-forward-circle-outline" slot="end"></ion-icon>
+      <ion-icon color="secondary" size="large" name="arrow-back-circle-outline" slot="start"></ion-icon>
+    </ion-item>
+    <ion-item-options side="end">
+      <ion-item-option button (click)="deleteAll();slidingItem.close()" color="danger">Remove All</ion-item-option>
+    </ion-item-options>
+    <ion-item-options side="start">
+      <ion-item-option button (click)="refreshList();slidingItem.close()" color="secondary">
+        <ion-icon name="refresh-circle-outline" size="large"></ion-icon>
+      </ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+
+
+  <ion-list  *ngFor="let product of filterProducts; let i = index" class="product-list">
+
+    <ion-card [class.active]="i == currentIndex" button="true" (click)="setActiveProduct(product, i)">
+      <ion-item color="tertiary">
+        <!--<ion-icon name="pricetag-outline" slot="end" color="secondary"></ion-icon>-->
+        <ion-title>{{product.id}}</ion-title>
+        <ion-button *ngIf="i == currentIndex" fill="solid" slot="end" color="secondary">edit</ion-button>
       </ion-item>
       <ion-card-content>
         {{ product.nome }}

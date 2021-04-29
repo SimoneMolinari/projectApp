@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { MainService } from '../services/main.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
@@ -33,6 +33,7 @@ export class Tab2Page implements OnInit {
   asin : string = '';
   id_user : any;
   email : string;
+  mobile : boolean;
 
   ngOnInit(){
     this.product = this.fb.group({
@@ -126,5 +127,11 @@ export class Tab2Page implements OnInit {
 
   get valid() {
     return this.isValid;
+  }
+
+  @HostListener('window:resize', ['$event'])
+    onResize(event) {
+    let screenWidth = window.innerWidth;
+    if(screenWidth < 780) this.mobile = true; else this.mobile = false;
   }
 }

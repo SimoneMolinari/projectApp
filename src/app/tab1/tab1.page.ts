@@ -1,5 +1,5 @@
 import { AuthenticationService } from './../services/authentication.service';
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Product } from '../models/product';
@@ -32,6 +32,7 @@ export class Tab1Page {
   currentIndex = -1;
   title = '';
   id_user : any;
+  mobile: boolean;
 
   async loadUserCredentials() {
     const id = await Storage.get({ key: ID_KEY });    
@@ -99,10 +100,17 @@ export class Tab1Page {
       }, 500);
     }
     
-    deleteAll() {
-      this.mainService.deleteAll({id_user: this.id_user}).subscribe(res =>{
+    async deleteAll() {
+      await this.mainService.deleteAll({id_user: this.id_user}).subscribe(res =>{
         console.log(res.msg);
       });
-      this.refreshList();
+      await this.refreshList();
     }
+
+  @HostListener('window:resize', ['$event'])
+    onResize(event) {
+    let screenWidth = window.innerWidth;
+    if(screenWidth < 780) this.mobile = true; else this.mobile = false;
   }
+
+}
