@@ -3,6 +3,12 @@ import { Component, OnInit, HostListener} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
+
+import { TOKEN_KEY, ID_KEY, EMAIL_KEY } from '../../services/authentication.service';
+import { Plugins } from '@capacitor/core';
+const { Storage } = Plugins;
+ 
+
  
 @Component({
   selector: 'app-login',
@@ -27,13 +33,17 @@ export class LoginPage implements OnInit {
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
- 
+
+
   async login() {
     const loading = await this.loadingController.create();
     await loading.present();
     
     this.authService.login(this.credentials.value).subscribe(
       async (res) => {
+        await Storage.set({key: TOKEN_KEY, value: res.token});
+        await Storage.set({key: ID_KEY, value: res.id});
+        await Storage.set({key: EMAIL_KEY, value: res.email});
         await loading.dismiss();        
         this.router.navigateByUrl('/tabs', { replaceUrl: true });
       },
@@ -48,6 +58,7 @@ export class LoginPage implements OnInit {
         await alert.present();
       }
     );
+
   }
   
   goToRegister() {

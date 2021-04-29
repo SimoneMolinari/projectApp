@@ -36,7 +36,7 @@
     </div>
   </div>
   
-  <ion-button type="submit" expand="block" [disabled]="!product.valid">Add Product</ion-button>
+  <ion-button type="submit" expand="block" [disabled]="!product.valid || !valid">Add Product</ion-button>
   </form>
 
 </ion-content>

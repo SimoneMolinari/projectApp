@@ -1,9 +1,14 @@
 ion-content {
-    --background: #0081ca;
+    --background:var(--ion-color-tertiary);
 }
  
 ion-slides {
     height: 100%;
     --bullet-background-active: #fff;
     --bullet-background: #000;
+}
+
+.image {
+    width: 50%;
+    height: auto;
 }

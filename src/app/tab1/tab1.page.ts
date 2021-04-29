@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { Product } from '../models/product';
 import { MainService } from '../services/main.service';
 
-import { SideMenuPageModule } from '../pages/side-menu/side-menu.module';
  
 @Component({
   selector: 'app-tab1',
@@ -24,6 +23,7 @@ export class Tab1Page {
   currentIndex = -1;
   title = '';
 
+   
 
   async logout() {
     await this.authService.logout();
@@ -75,6 +75,13 @@ export class Tab1Page {
 
   scrollToTop() {
     document.querySelector('ion-content').scrollToTop(500);
+  }
+
+  spinner(event) {
+    this.refreshList(this.user);
+    setTimeout(() => {
+      event.target.complete();
+    }, 2000);
   }
   
 }

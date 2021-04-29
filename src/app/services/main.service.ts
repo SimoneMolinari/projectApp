@@ -30,4 +30,8 @@ export class MainService {
     });
   }
 
+  validateAsin(product) : Observable<any>{
+    return this.http.post('http://localhost:8080/api/validateAsin', product);
+  }
+
 }

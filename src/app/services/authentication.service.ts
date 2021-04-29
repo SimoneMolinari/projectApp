@@ -6,9 +6,9 @@ import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
 import { Plugins } from '@capacitor/core';
 const { Storage } = Plugins;
  
-const TOKEN_KEY = 'my-token';
-const ID_KEY = 'my-id';
-const EMAIL_KEY = 'my-email';
+export const TOKEN_KEY = 'my-token';
+export const ID_KEY = 'my-id';
+export const EMAIL_KEY = 'my-email';
  
 @Injectable({
   providedIn: 'root'
@@ -33,15 +33,10 @@ export class AuthenticationService {
     } else {
       this.isAuthenticated.next(false);
     }
-  }
-
-  async loadUserCredentials() {
-    const id = await Storage.get({ key: TOKEN_KEY });    
-    const email = await Storage.get({ key: TOKEN_KEY });    
-  }
+  }  
   
-  
-  login(credentials: {username, password}): Observable<any> {
+  /*
+  login0(credentials: {username, password}): Observable<any> {
     return this.http.post(`http://localhost:8080/api/login`, credentials).pipe(
       map((data: any) => data.token),
       switchMap(token => {
@@ -52,9 +47,21 @@ export class AuthenticationService {
       })
     )
   } 
+
+  */
+
+  login(credentials: {username, password}): Observable<any> {
+    return this.http.post(`http://localhost:8080/api/login`, credentials).pipe(tap(_ => {
+      this.isAuthenticated.next(true);
+    }));
+  } 
+
+
   
   logout(): Promise<void> {
     this.isAuthenticated.next(false);
+    Storage.remove({key: EMAIL_KEY});
+    Storage.remove({key: ID_KEY});
     return Storage.remove({key: TOKEN_KEY});
   }
 

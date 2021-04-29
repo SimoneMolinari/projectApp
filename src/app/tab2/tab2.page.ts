@@ -5,6 +5,11 @@ import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/htt
 import { Observable } from 'rxjs';
 import { AlertController, LoadingController } from '@ionic/angular';
 
+
+import { TOKEN_KEY, ID_KEY, EMAIL_KEY } from '../services/authentication.service';
+import { Plugins } from '@capacitor/core';
+const { Storage } = Plugins;
+
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -18,7 +23,7 @@ export class Tab2Page implements OnInit {
     private http: HttpClient,
     private alertController: AlertController,
     private loadingController: LoadingController
-    ) {}
+    ) {this.loadUserCredentials();}
 
     
   response : HttpResponse<Object>;
@@ -26,55 +31,60 @@ export class Tab2Page implements OnInit {
   product : FormGroup;
   isValid : boolean = false;
   asin : string = '';
+  id_user : any;
+  email : string;
 
   ngOnInit(){
     this.product = this.fb.group({
       id_prod: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       nome_prod: ['', [Validators.required]],
-      email: 'bollitore.fugcae@gmail.com',
-      id_user: 8
+      email: this.email,
+      id_user: this.id_user
     });
-    //this.validateASIN(null, this.asin);
+    
   }
 
-  validateASIN(product?: {id_prod, nome_prod, email, id_user}, ASIN? : string) {
-    let asin;
-    if(product != null) asin = product.id_prod; else asin = ASIN;
-    let url = 'https://amazon.it/dp/'+asin;
+  async loadUserCredentials() {
+    const id = await Storage.get({ key: ID_KEY });    
+    const email = await Storage.get({ key: EMAIL_KEY });    
 
-    this.http.get(url, { observe: 'response' }).subscribe(data => {
-      this.response.clone(data);
-    },
-      err => {
-        this.responseErr = err;
-      });
+    if (id && id.value) {
+      //console.log('set id: ', id.value);
+      this.id_user = id.value;
+      //console.log(this.id_user);
+    } 
+
+    if (email && email.value) {
+      //console.log('set email: ', email.value);
+      this.email = email.value;
+      //console.log(this.email);
+    } 
   }
 
-  async addProduct() {
-      this.validateASIN(this.product.value);
-      if(await (this.response != undefined)) {
-        if((this.response.status != 404) ) {
-          this.isValid =  true;
-          console.log(" 1 Error : not 404");
-          this.mainService.addProduct(this.product.value);
-        } else { 
-          console.log("1 Error : 404");
-          this.isValid =  false;
-          console.log("fails");
-        }
-      } else if (await (this.responseErr != undefined)) {
-        if(this.responseErr.status != 404) {
-          console.log("Error : not 404");
-          this.isValid =  true;
-          this.mainService.addProduct(this.product.value);
-          console.log("success");
-        } else { 
-          console.log("Error : 404");
-          this.isValid =  false;
-          console.log("fails");
-        }
-      }
-      await console.log(this.isValid);
+  async validateASIN(product : {id_prod, nome_prod, email, id_user}) {
+    this.mainService.validateAsin(product).subscribe(res =>{
+      this.isValid = res.valid;
+      if(res.valid) this.asin = product.id_prod;
+      console.log(res.valid);
+      return res.valid;
+    })
+  }
+
+  async validateBtn() {
+    this.isValid = null;
+    this.validateASIN(this.product.value);
+  }
+
+  addProduct() {
+    if(this.isValid && this.asin == this.product.controls.id_prod.value) {
+      console.log("aggiunto");
+      this.product.patchValue({email : this.email, id_user : this.id_user});
+      console.log(this.product.value);
+      this.mainService.addProduct(this.product.value);
+    } else {
+      console.log("non aggiunto");      
+    }
+    this.isValid = null;
   }
       
     

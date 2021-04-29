@@ -61,7 +61,7 @@ export class RegisterPage implements OnInit {
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     let screenWidth = window.innerWidth;
-    if(screenWidth < 780) this.mobile = true; else this.mobile = false;
+    if(screenWidth < 550) this.mobile = true; else this.mobile = false;
   }
  
   get username() {

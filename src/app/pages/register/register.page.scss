@@ -9,24 +9,24 @@
 .ion-content-desktop {
     --padding-start: 10%;
     --padding-end: 10%;
-    --padding-top: 10%;
+    --padding-top: 3%;
 }
 
 .svg {
-    background-image: url(../../images/register2.svg);
+    background-image: url(../../images/graduation.svg);
     width: 100%;
     background-size: cover;
-    background-position: center top; /* First value is from left and second is from top. You can use use number as well*/
+    background-position: center bottom; /* First value is from left and second is from top. You can use use number as well*/
     background-repeat:no-repeat;
-    height: 50%;
+    height: 45%;
 }
 
 .svg-mobile{
     height: 40%;
-    background-image: url(../../images/register2.svg);
+    background-image: url(../../images/floating.svg);
     width: 100%;
     background-size: cover;
-    background-position: center top; /* First value is from left and second is from top. You can use use number as well*/
+    background-position: center bottom; /* First value is from left and second is from top. You can use use number as well*/
     background-repeat:no-repeat;
 }
 
