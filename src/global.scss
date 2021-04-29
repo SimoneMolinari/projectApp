@@ -25,6 +25,21 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: normal;
+    src: url('./theme/fonts/OpenSans-Light.ttf');
+  }
+
 ion-content {
-    --background: var(--ion-color-tertiary);
+    --background: linear-gradient(to bottom right, var(--ion-color-tertiary), var(--ion-color-primary));
+}
+
+ion-app {
+    --ion-font-family: 'Open Sans'!important;
+}
+
+body {
+    background-image: linear-gradient(to bottom right, var(--ion-color-primary), var(--ion-color-tertiary));
 }

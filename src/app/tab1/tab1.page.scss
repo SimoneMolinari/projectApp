@@ -2,7 +2,6 @@
     --padding-top: 10%;
     --padding-start: 10%;
     --padding-end: 10%;
-    background: var(--ion-color-tertiary);
 }
 
 .control-group {
@@ -23,4 +22,20 @@
 
 .top-div {
     width: 100%;
+}
+
+ion-item {
+    --border-color: var(--ion-color-secondary);
+    border-radius: 3px;
+}
+
+ion-searchbar {
+    --cancel-button-color: var(--ion-color-secondary);
+    --clear-button-color: var(--ion-color-secondary);
+    --icon-color: var(--ion-color-secondary);
+    --background: var(--ion-color-tertiary);
+}
+
+ion-card {
+    padding: 1%;
 }

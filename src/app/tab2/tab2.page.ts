@@ -62,12 +62,27 @@ export class Tab2Page implements OnInit {
   }
 
   async validateASIN(product : {id_prod, nome_prod, email, id_user}) {
-    this.mainService.validateAsin(product).subscribe(res =>{
+    const loading = await this.loadingController.create();
+    await loading.present();
+    this.mainService.validateAsin(product).subscribe(async res =>{
       this.isValid = res.valid;
-      if(res.valid) this.asin = product.id_prod;
+      if(res.valid) {
+        this.asin = product.id_prod;
+        await loading.dismiss();  
+      } else {
+        await loading.dismiss();
+        const alert = await this.alertController.create({
+          header: 'Failed',
+          message: 'The code is not valid',
+          buttons: ['OK'],
+        });
+ 
+        await alert.present();
+      }
       console.log(res.valid);
       return res.valid;
-    })
+    });
+    
   }
 
   async validateBtn() {
@@ -81,6 +96,7 @@ export class Tab2Page implements OnInit {
       this.product.patchValue({email : this.email, id_user : this.id_user});
       console.log(this.product.value);
       this.mainService.addProduct(this.product.value);
+      this.product.patchValue({id_prod : '', nome_prod : ''});
     } else {
       console.log("non aggiunto");      
     }

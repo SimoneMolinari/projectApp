@@ -8,7 +8,6 @@ import { TOKEN_KEY, ID_KEY, EMAIL_KEY } from '../../services/authentication.serv
 import { Plugins } from '@capacitor/core';
 const { Storage } = Plugins;
  
-
  
 @Component({
   selector: 'app-login',
@@ -49,7 +48,7 @@ export class LoginPage implements OnInit {
       },
       async (res) => {
         await loading.dismiss();
-        const alert = await this.alertController.create({
+        const alert =  await this.alertController.create({
           header: 'Login failed',
           message: res.error.error,
           buttons: ['OK'],

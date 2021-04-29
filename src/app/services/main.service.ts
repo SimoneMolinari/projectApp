@@ -31,7 +31,11 @@ export class MainService {
   }
 
   validateAsin(product) : Observable<any>{
-    return this.http.post('http://localhost:8080/api/validateAsin', product);
+    return this.http.post(baseUrl + 'validateAsin', product);
+  }
+
+  deleteAll(user : {id_user}) : Observable<any> {
+    return this.http.post(baseUrl + 'deleteAll', user);
   }
 
 }
