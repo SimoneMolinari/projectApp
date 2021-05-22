@@ -33,7 +33,7 @@
   }
 
 ion-content {
-    --background: linear-gradient(to bottom right, var(--ion-color-tertiary), var(--ion-color-primary));
+    --background: linear-gradient(to bottom , var(--ion-color-secondary), var(--ion-color-tertiary));
 }
 
 ion-app {
@@ -41,5 +41,6 @@ ion-app {
 }
 
 body {
-    background-image: linear-gradient(to bottom right, var(--ion-color-primary), var(--ion-color-tertiary));
+    background-color: var(--ion-color-primary);
 }
+

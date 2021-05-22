@@ -50,8 +50,10 @@ export class AuthenticationService {
 
   */
 
+  //
+  //http://salsadisoia.duckdns.org:12804/api/login
   login(credentials: {username, password}): Observable<any> {
-    return this.http.post(`http://localhost:8080/api/login`, credentials).pipe(tap(_ => {
+    return this.http.post(`https://salsadisoia.duckdns.org:12804/api/login`, credentials).pipe(tap(_ => {
       this.isAuthenticated.next(true);
     }));
   } 
@@ -65,8 +67,9 @@ export class AuthenticationService {
     return Storage.remove({key: TOKEN_KEY});
   }
 
+  //http://salsadisoia.duckdns.org:12804/api/register
   register(credentials: {username, password, repeat_password, email}): Observable<any> {
-    return this.http.post(`http://localhost:8080/api/register`, credentials);
+    return this.http.post(`https://salsadisoia.duckdns.org:12804/api/register`, credentials);
   }
 
 

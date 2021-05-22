@@ -1,7 +1,8 @@
 ion-content {
-    --background : linear-gradient(to bottom right, var(--ion-color-tertiary), var(--ion-color-primary));
+    --background : linear-gradient(to bottom, var(--ion-color-secondary), var(--ion-color-tertiary));
 }
- 
+
+
 ion-slides {
     height: 100%;
     --bullet-background-active: #fff;
@@ -11,4 +12,8 @@ ion-slides {
 .image {
     width: 50%;
     height: auto;
+}
+
+a {
+    color: var(--ion-color-light);
 }

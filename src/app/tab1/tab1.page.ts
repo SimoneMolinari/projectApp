@@ -32,7 +32,6 @@ export class Tab1Page {
   currentIndex = -1;
   title = '';
   id_user : any;
-  mobile: boolean;
 
   async loadUserCredentials() {
     const id = await Storage.get({ key: ID_KEY });    
@@ -55,15 +54,15 @@ export class Tab1Page {
   }
   
   async loadProducts() {
-    this.mainService.getProducts({id_user : this.id_user}).subscribe(
+    await this.mainService.getProducts({id_user : this.id_user}).subscribe(
       data => {
         this.allProducts = data;
         this.filterProducts = this.allProducts;
       });
     }
     
-    refreshList(): void {
-      this.loadProducts();
+    async refreshList() {
+      await this.loadProducts();
       this.currentIndex = undefined;
       this.currentIndex = -1;
     }
@@ -82,9 +81,9 @@ export class Tab1Page {
       }
       
       this.filterProducts = this.filterProducts.filter(currProduct => {
-        if (currProduct.nome && searchTerm) {
-          return (currProduct.nome.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
-          || currProduct.id.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
+        if (currProduct.nome_prod && searchTerm) {
+          return (currProduct.nome_prod.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
+          || currProduct.id_prod.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
         }
       });
     }
@@ -104,13 +103,13 @@ export class Tab1Page {
       await this.mainService.deleteAll({id_user: this.id_user}).subscribe(res =>{
         console.log(res.msg);
       });
-      await this.refreshList();
+      setTimeout(() => {
+        this.refreshList();
+      }, 500)
     }
 
-  @HostListener('window:resize', ['$event'])
-    onResize(event) {
-    let screenWidth = window.innerWidth;
-    if(screenWidth < 780) this.mobile = true; else this.mobile = false;
-  }
+    async goToUpdate() {
+      this.router.navigateByUrl('tabs/product-list/' + this.currentProduct.id_maillist);
+    }
 
 }

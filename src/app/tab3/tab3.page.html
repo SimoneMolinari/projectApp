@@ -1,17 +1,88 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
+<ion-header>
+  <ion-toolbar color="var(--ion-color-primary-shade)">
     <ion-title>
-      Tab 3
+      Product Details
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-content">
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <div *ngIf="gproduct != undefined ">
+    <div *ngIf="gproduct.length != 0">
+
+
+      <div *ngFor="let prod of product">
+
+        <ion-card class="olddati">
+          <ion-item color="tertiary">
+            <ion-title>{{ prod.id_prod }} | {{ prod.price }} €</ion-title>
+          </ion-item>
+          <ion-card-content>
+            {{ prod.nome_prod }}
+          </ion-card-content>
+        </ion-card>
+
+        <form (ngSubmit)="updateProduct()" [formGroup]="productFG">
+          <div class="input-group">
+            <ion-item>
+              <ion-label position="floating">ASIN:</ion-label>
+              <ion-input type="text" placeholder="{{ prod.id_prod }}" formControlName="id_prod" autocomplete="off">
+              </ion-input>
+              <ion-button color="tertiary" slot="end" size="small" (click)="validateBtn()">validate</ion-button>
+            </ion-item>
+            <div *ngIf="id_prod">
+              <div *ngIf="(id_prod.dirty || id_prod.touched) && id_prod.errors" class="errors">
+                <span *ngIf="id_prod.errors?.required">The code is required<br></span>
+                <span *ngIf="id_prod.errors?.minlength">The code needs to be 10 chars long<br></span>
+                <span *ngIf="id_prod.errors?.maxLength">The code needs to be 10 chars long<br></span>
+              </div>
+              <div *ngIf="!valid || valid == null">
+                <span *ngIf="valid == false" class="errors">The code does not exist, please validate</span>
+              </div>
+            </div>
+
+            <ion-item>
+              <ion-label position="floating">Description:</ion-label>
+              <ion-input type="text" placeholder="{{ prod.nome_prod }}" formControlName="nome_prod" autocomplete="off"> </ion-input>
+            </ion-item>
+            <div *ngIf="nome_prod">
+              <div *ngIf="(nome_prod.dirty || nome_prod.touched) && nome_prod.errors" class="errors">
+                <span *ngIf="nome_prod.errors?.required">Description is required</span>
+              </div>
+            </div>
+
+            <ion-item>
+              <ion-label position="floating">Price:</ion-label>
+              <ion-input type="number" placeholder="Insert the price" formControlName="price" min="0" step="0.01" autocomplete="off"></ion-input>
+            </ion-item>
+            <div *ngIf="price">
+              <div *ngIf="(price.dirty || price.touched) && price.errors" class="errors">
+                <span *ngIf="price.errors?.required">Price is required</span>
+              </div>
+            </div>
+
+          </div>
+
+          <ion-button type="submit" expand="block" [disabled]="!productFG.valid || !valid">Update Product</ion-button>
+          <ion-button (click)="deleteProduct()" expand="block" style="--background: var(--ion-color-danger-shade); --color:black">
+            Delete
+            Product</ion-button>
+        </form>
+      </div>
+    </div>
+
+    
+    <div *ngIf="gproduct.length == 0">
+      <ion-item color="danger" class="input-group">
+        <ion-title>
+          <ion-text color="dark">
+            Product not found, please reload the product list...
+          </ion-text>
+        </ion-title>
+      </ion-item>
+    </div>
+  </div>
+
+  
 </ion-content>

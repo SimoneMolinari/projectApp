@@ -1,3 +1,12 @@
 <ion-app>
+
+    <ion-header *ngIf="!url">
+        <ion-toolbar color="transparent">
+            <ion-button (click)="presentPopover($event)" slot="end" fill="clear">
+                <ion-icon  slot="icon-only" name="person-circle-outline" color="light" size="large"></ion-icon>
+            </ion-button>
+        </ion-toolbar>
+    </ion-header>
+
     <ion-router-outlet id="main-menu"></ion-router-outlet>
 </ion-app>

@@ -1,80 +1,58 @@
 <ion-header>
   <ion-toolbar color="var(--ion-color-primary-shade)">
     <ion-title>
-        Add Product
+      Add Product
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 
-<ion-content *ngIf="!mobile" class="ion-content-desktop" class="ion-content-desktop">
+<ion-content  class="ion-content">
 
-  <form (ngSubmit)="addProduct()" [formGroup]="product">
+  <form (ngSubmit)="addProduct()" [formGroup]="product" >
     <div class="input-group">
-    <ion-item >
-      <ion-label position="floating">ASIN:</ion-label>
-      <ion-input type="text" placeholder="Insert the ASIN of the product" formControlName="id_prod">
-      </ion-input>
-      <ion-button color="tertiary" slot="end" size="small" (click)="validateBtn()">validate asin</ion-button>
-    </ion-item>
-    <div *ngIf="id_prod">
-      <div *ngIf="(id_prod.dirty || id_prod.touched) && id_prod.errors || !valid" class="errors">
-        <span *ngIf="id_prod.errors?.required">The code is required<br></span>
-        <span *ngIf="id_prod.errors?.minlength">The code needs to be 10 chars long<br></span>
-        <span *ngIf="id_prod.errors?.maxLength">The code needs to be 10 chars long<br></span>
-        <span *ngIf="!valid">The code does not exist</span>
+      <ion-item>
+        <ion-label position="floating">ASIN:</ion-label>
+        <ion-input type="text" placeholder="Insert the ASIN of the product" formControlName="id_prod" autocomplete="off">
+        </ion-input>
+        <ion-button color="tertiary" slot="end" size="small" (click)="validateBtn()">validate</ion-button>
+      </ion-item>
+      <div *ngIf="id_prod">
+        <div *ngIf="(id_prod.dirty || id_prod.touched) && id_prod.errors " class="errors">
+          <span *ngIf="id_prod.errors?.required">The code is required<br></span>
+          <span *ngIf="id_prod.errors?.minlength">The code needs to be 10 chars long<br></span>
+          <span *ngIf="id_prod.errors?.maxLength">The code needs to be 10 chars long<br></span>
+        </div>
+        <div *ngIf="!valid || valid == null" >
+          <span *ngIf="valid == false" class="errors">The code does not exist, please validate</span>
+        </div>
       </div>
+
+      <ion-item>
+        <ion-label position="floating">Description:</ion-label>
+        <ion-input type="text" placeholder="Insert some custom text" formControlName="nome_prod" autocomplete="off"></ion-input>
+      </ion-item>
+      <div *ngIf="nome_prod">
+        <div *ngIf="(nome_prod.dirty || nome_prod.touched) && nome_prod.errors" class="errors">
+          <span *ngIf="nome_prod.errors?.required">Description is required</span>
+        </div>
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Price:</ion-label>
+        <ion-input type="number" placeholder="Insert the price" formControlName="price" min="0" step="0.01" autocomplete="off"></ion-input>
+      </ion-item>
+      <div *ngIf="price">
+        <div *ngIf="(price.dirty || price.touched) && price.errors" class="errors">
+          <span *ngIf="price.errors?.required">Price is required</span>
+        </div>
+      </div>
+      
     </div>
 
-    <ion-item>
-      <ion-label position="floating">Description:</ion-label>
-      <ion-input type="text" placeholder="Insert some custom text" formControlName="nome_prod"></ion-input>
-    </ion-item>
-    <div *ngIf="nome_prod">
-      <div *ngIf="(nome_prod.dirty || nome_prod.touched) && nome_prod.errors" class="errors">
-        <span *ngIf="nome_prod.errors?.required">Description is required</span>
-      </div>
-    </div>
-  </div>
-  
-  <ion-button type="submit" expand="block" [disabled]="!product.valid || !valid">Add Product</ion-button>
+    <ion-button type="submit" expand="block" [disabled]="!product.valid || !valid">Add Product</ion-button>
   </form>
 
 </ion-content>
 
 
-
-<ion-content *ngIf="mobile" class="ion-content-mobile">
-
-  <form (ngSubmit)="addProduct()" [formGroup]="product">
-    <div class="input-group">
-    <ion-item >
-      <ion-label position="floating">ASIN:</ion-label>
-      <ion-input type="text" placeholder="Insert the ASIN of the product" formControlName="id_prod">
-      </ion-input>
-      <ion-button color="tertiary" slot="end" size="small" (click)="validateBtn()">validate asin</ion-button>
-    </ion-item>
-    <div *ngIf="id_prod">
-      <div *ngIf="(id_prod.dirty || id_prod.touched) && id_prod.errors || !valid" class="errors">
-        <span *ngIf="id_prod.errors?.required">The code is required<br></span>
-        <span *ngIf="id_prod.errors?.minlength">The code needs to be 10 chars long<br></span>
-        <span *ngIf="id_prod.errors?.maxLength">The code needs to be 10 chars long<br></span>
-        <span *ngIf="!valid">The code does not exist</span>
-      </div>
-    </div>
-
-    <ion-item>
-      <ion-label position="floating">Description:</ion-label>
-      <ion-input type="text" placeholder="Insert some custom text" formControlName="nome_prod"></ion-input>
-    </ion-item>
-    <div *ngIf="nome_prod">
-      <div *ngIf="(nome_prod.dirty || nome_prod.touched) && nome_prod.errors" class="errors">
-        <span *ngIf="nome_prod.errors?.required">Description is required</span>
-      </div>
-    </div>
-  </div>
-  
-  <ion-button type="submit" expand="block" [disabled]="!product.valid || !valid">Add Product</ion-button>
-  </form>
-
-</ion-content>

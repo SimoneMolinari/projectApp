@@ -29,16 +29,16 @@ export class Tab2Page implements OnInit {
   response : HttpResponse<Object>;
   responseErr : HttpErrorResponse;
   product : FormGroup;
-  isValid : boolean = false;
+  isValid : boolean = null;
   asin : string = '';
   id_user : any;
   email : string;
-  mobile : boolean;
 
   ngOnInit(){
     this.product = this.fb.group({
       id_prod: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       nome_prod: ['', [Validators.required]],
+      price: ['', [Validators.required]],
       email: this.email,
       id_user: this.id_user
     });
@@ -62,12 +62,20 @@ export class Tab2Page implements OnInit {
     } 
   }
 
+  fromCodeToValid(code) {
+    if(code == 404) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   async validateASIN(product : {id_prod, nome_prod, email, id_user}) {
     const loading = await this.loadingController.create();
     await loading.present();
     this.mainService.validateAsin(product).subscribe(async res =>{
-      this.isValid = res.valid;
-      if(res.valid) {
+      this.isValid = this.fromCodeToValid(res.valid);
+      if(this.fromCodeToValid(res.valid)) {
         this.asin = product.id_prod;
         await loading.dismiss();  
       } else {
@@ -80,8 +88,8 @@ export class Tab2Page implements OnInit {
  
         await alert.present();
       }
-      console.log(res.valid);
-      return res.valid;
+      //console.log(res.valid);
+      return this.fromCodeToValid(res.valid);
     });
     
   }
@@ -93,29 +101,17 @@ export class Tab2Page implements OnInit {
 
   addProduct() {
     if(this.isValid && this.asin == this.product.controls.id_prod.value) {
-      console.log("aggiunto");
+      //console.log("aggiunto");
       this.product.patchValue({email : this.email, id_user : this.id_user});
-      console.log(this.product.value);
+      //console.log(this.product.value);
       this.mainService.addProduct(this.product.value);
       this.product.patchValue({id_prod : '', nome_prod : ''});
     } else {
-      console.log("non aggiunto");      
+      //console.log("non aggiunto");      
     }
     this.isValid = null;
   }
       
-    
-    
-
-  /*
-  async addProduct() {
-    if(await this.validateASIN(this.product.value)) { 
-      this.mainService.addProduct(this.product.value);
-      console.log("success");
-    } else {
-      console.log("unsuccess");
-    }
-  }*/
 
   get id_prod() {
     return this.product.get('id_prod');
@@ -129,9 +125,8 @@ export class Tab2Page implements OnInit {
     return this.isValid;
   }
 
-  @HostListener('window:resize', ['$event'])
-    onResize(event) {
-    let screenWidth = window.innerWidth;
-    if(screenWidth < 780) this.mobile = true; else this.mobile = false;
+  get price() {
+    return this.product.get('price');
   }
+
 }

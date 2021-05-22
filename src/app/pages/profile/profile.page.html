@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color="var(--ion-color-primary-shade)">
+    <ion-title>Profile Settings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-content">
+
+  <form (ngSubmit)="updateUser()" [formGroup]="user">
+    <div class="control-group">
+      <ion-item>
+        <ion-label position="floating">New email:</ion-label>
+        <ion-input type="email" placeholder="New email" formControlName="email" autocomplete="off"></ion-input>
+      </ion-item>
+      <div *ngIf="email">
+        <div *ngIf="(email.dirty || email.touched) && email.errors " class="errors">
+          <span *ngIf="email.errors?.required">The email is required<br></span>
+          <span *ngIf="email.errors?.email">Email is invalid</span>
+        </div>
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">New Password:</ion-label>
+        <ion-input type="password" placeholder="New password" formControlName="new_password" autocomplete="off"></ion-input>
+      </ion-item>
+      <div *ngIf="new_password">
+        <div *ngIf="(new_password.dirty || new_password.touched) && new_password.errors" class="errors">
+          <span *ngIf="new_password.errors?.required">New password is required</span>
+          <span *ngIf="new_password.errors?.minlength">Password needs to be at least 8 characters</span>
+        </div>
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Password:</ion-label>
+        <ion-input type="password" placeholder="Password" formControlName="password" autocomplete="off"></ion-input>
+      </ion-item>
+      <div *ngIf="password">
+        <div *ngIf="(password.dirty || password.touched) && password.errors" class="errors">
+          <span *ngIf="password.errors?.required">Password is required</span>
+          <span *ngIf="password.errors?.minlength">Password needs to be at least 8 characters</span>
+        </div>
+      </div>
+    </div>
+    <ion-button type="submit" expand="block" [disabled]="!user.valid">Update user</ion-button>
+  </form>
+
+
+
+
+</ion-content>

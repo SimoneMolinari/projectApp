@@ -1,0 +1,31 @@
+.ion-content {
+    --padding-top: 10%;
+    --padding-start: 10%;
+    --padding-end: 10%;
+}
+
+
+@media screen and (max-width: 400px) {
+    .ion-content {
+        --padding-top: 40%;
+        --padding-start: 10%;
+        --padding-end: 10%;
+    }
+
+}
+
+.control-group {
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.errors {
+    font-size: small;
+    //color: #fff;
+    background: var(--ion-color-danger);
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}

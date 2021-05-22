@@ -44,7 +44,7 @@ export class RegisterPage implements OnInit {
       async (res) => {
         await loading.dismiss();
         const alert = await this.alertController.create({
-          header: 'Registration failed',
+          header: 'Registration failed, credentials not valid',
           message: res.error.error,
           buttons: ['OK'],
         });

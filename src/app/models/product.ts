@@ -1,5 +1,6 @@
 export class Product {
-    id?: any;
-    nome?: string;
-    new_id_prod?: string;
+    id_prod?: any;
+    nome_prod?: string;
+    id_maillist? : any;
+    price? : any;
 }
